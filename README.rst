@@ -6,8 +6,8 @@ CollateX Utils
 .. image:: https://img.shields.io/pypi/v/acdh_collatex_utils.svg
         :target: https://pypi.python.org/pypi/acdh_collatex_utils
 
-.. image:: https://img.shields.io/travis/csae8092/acdh_collatex_utils.svg
-        :target: https://travis-ci.com/csae8092/acdh_collatex_utils
+.. image:: https://img.shields.io/travis/acdh-oeaw/acdh_collatex_utils.svg
+        :target: https://travis-ci.com/acdh-oeaw/acdh_collatex_utils
 
 .. image:: https://readthedocs.org/projects/acdh-collatex-utils/badge/?version=latest
         :target: https://acdh-collatex-utils.readthedocs.io/en/latest/?badge=latest
