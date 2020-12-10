@@ -70,7 +70,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
+Untitled*
 # pyenv
 .python-version
 
@@ -103,3 +103,4 @@ ENV/
 
 # IDE settings
 .vscode/
+/*.html

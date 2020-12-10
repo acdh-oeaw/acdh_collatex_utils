@@ -20,6 +20,22 @@ acdh\_collatex\_utils.cli module
     :undoc-members:
     :show-inheritance:
 
+acdh\_collatex\_utils.collatex\_patch module
+--------------------------------------------
+
+.. automodule:: acdh_collatex_utils.collatex_patch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+acdh\_collatex\_utils.xml module
+--------------------------------
+
+.. automodule:: acdh_collatex_utils.xml
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
