@@ -10,25 +10,26 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = [
+    'requests==2.25.0',
+    'Click>=7.0',
+    'lxml==4.6.1',
+    'tqdm==4.52.0'
+]
 
-setup_requirements = [ ]
+setup_requirements = []
 
-test_requirements = [ ]
+test_requirements = []
 
 setup(
     author="Peter Andorfer",
     author_email='peter.andorfer@oeaw.ac.at',
-    python_requires='>=3.5',
+    python_requires='>=3.8',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
     description="Utility functions to work with collatex",
@@ -47,7 +48,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/csae8092/acdh_collatex_utils',
+    url='https://github.com/acdh-oeaw/acdh_collatex_utils',
     version='0.1.0',
     zip_safe=False,
 )
