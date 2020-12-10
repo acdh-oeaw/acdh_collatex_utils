@@ -34,4 +34,10 @@ To use CollateX Utils in a project::
     print(f"{end_time - start_time}")
 
     with open('out.html', 'w') as f:
-      print(visualize_table_vertically_with_colors(table, collation), file=f)
+      print(
+        visualize_table_vertically_with_colors(
+          table,
+          collation
+        ),
+        file=f
+      )
