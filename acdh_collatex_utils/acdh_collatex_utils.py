@@ -87,3 +87,20 @@ class CxReader(XMLReader):
             self.file_name = os.path.split(self.file)[1]
         except Exception as e:
             self.file_name = self.file
+
+
+def yield_chunks(files):
+    """ utility function to yield chunks from a collection of files
+
+    :param files: List of full file names / file paths to TEI/XML
+    :type files: list
+
+    :return: yields chunk dicts
+    :rtype: dict:
+
+    """
+    for x in files:
+        doc = CxReader(xml=x)
+        chunks = doc.yield_chunks()
+        for y in chunks:
+            yield y

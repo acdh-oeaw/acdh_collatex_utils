@@ -104,3 +104,4 @@ ENV/
 # IDE settings
 .vscode/
 /*.html
+/tmp
