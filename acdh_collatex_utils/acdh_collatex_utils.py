@@ -65,3 +65,4 @@ class CxReader(XMLReader):
         self.cur_doc = self.preprocess()
         self.plain_text = self.plain_text()
         self.collatex_wit = (self.file, self.plain_text)
+        self.plaint_text_len = len(self.plain_text)
