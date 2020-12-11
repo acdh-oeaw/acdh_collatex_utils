@@ -44,6 +44,10 @@ setup(
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
+    package_data={
+        '': ['fixtures/*.xml'],
+        'acdh_collatex_utils': ['xslt/*.xsl']
+    },
     keywords='acdh_collatex_utils',
     name='acdh_collatex_utils',
     packages=find_packages(include=['acdh_collatex_utils', 'acdh_collatex_utils.*']),
