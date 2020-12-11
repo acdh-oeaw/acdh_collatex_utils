@@ -45,7 +45,7 @@ setup(
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     package_data={
-        '': ['fixtures/*.xml'],
+        '': ['fixtures/*.*'],
         'acdh_collatex_utils': ['xslt/*.xsl']
     },
     keywords='acdh_collatex_utils',

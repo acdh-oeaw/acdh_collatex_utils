@@ -12,6 +12,14 @@ acdh\_collatex\_utils.acdh\_collatex\_utils module
     :undoc-members:
     :show-inheritance:
 
+acdh\_collatex\_utils.chunks module
+-----------------------------------
+
+.. automodule:: acdh_collatex_utils.chunks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 acdh\_collatex\_utils.cli module
 --------------------------------
 
