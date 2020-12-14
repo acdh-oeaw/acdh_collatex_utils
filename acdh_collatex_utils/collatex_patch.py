@@ -1,4 +1,5 @@
 from collatex.display_module import *
+from collatex.HTML import Table, TableRow, TableCell
 
 
 def visualize_table_vertically_with_colors(table, collation):
