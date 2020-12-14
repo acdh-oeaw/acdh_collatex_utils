@@ -1,6 +1,4 @@
 from collatex.display_module import *
-from collatex import HTML
-from collatex.HTML import Table, TableRow, TableCell
 
 
 def visualize_table_vertically_with_colors(table, collation):
@@ -19,4 +17,4 @@ def visualize_table_vertically_with_colors(table, collation):
     for witness in collation.witnesses:
         sigli.append(witness.sigil)
     x = Table(header_row=sigli, rows=rows)
-    return HTML(str(x)).data
+    return str(x)
