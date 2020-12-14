@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 
 """The setup script."""
 
@@ -16,6 +16,7 @@ requirements = [
     'Click>=7.0',
     'collatex==2.2',
     'lxml==4.6.1',
+    'pandas==1.1.5',
     'tqdm==4.52.0'
 ]
 
