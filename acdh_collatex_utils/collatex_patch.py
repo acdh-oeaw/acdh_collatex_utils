@@ -1,4 +1,5 @@
 from collatex.display_module import *
+from collatex import HTML
 from collatex.HTML import Table, TableRow, TableCell
 
 
