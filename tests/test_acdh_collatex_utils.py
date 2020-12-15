@@ -15,8 +15,8 @@ FILES = glob.glob(
     recursive=False
 )
 
-HTMLS = glob.glob(
-    "./fixtures/*.html",
+OUT_FILES = glob.glob(
+    "./fixtures/out__*.*",
     recursive=False
 )
 
@@ -51,8 +51,8 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         self.assertTrue('id' in df.keys())
 
     def test_004_collate_chunks(self):
-        if len(HTMLS) > 0:
-            for x in HTMLS:
+        if len(OUT_FILES) > 0:
+            for x in OUT_FILES:
                 os.remove(x)
         out = CxCollate(output_dir='./fixtures').collate()
         new_htmls = glob.glob(
@@ -60,6 +60,13 @@ class TestAcdh_collatex_utils(unittest.TestCase):
             recursive=False
         )
         self.assertTrue(len(new_htmls) == 3)
+        cur_out_files = glob.glob(
+            "./fixtures/out__*.*",
+            recursive=False
+        )
+        if len(cur_out_files) > 0:
+            for x in cur_out_files:
+                os.remove(x)
 
     def test_command_line_interface(self):
         """Test the CLI."""

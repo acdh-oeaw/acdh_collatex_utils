@@ -1,10 +1,12 @@
 import glob
 import os
 
-from datetime import datetime
 import lxml.etree as ET
 import pandas as pd
 import collatex
+from collatex.core_functions import export_alignment_table_as_tei
+from datetime import datetime
+
 from . xml import XMLReader
 from . chunks import get_chunks
 from . collatex_patch import visualize_table_vertically_with_colors
@@ -152,7 +154,7 @@ class CxCollate():
             start_time = datetime.now()
             print(f"start collating group {counter} at {start_time}")
             f_html = os.path.join(out_dir, f"out__{counter:03}.html")
-            f_xml = os.path.join(out_dir, f"out__{counter:03}.xml")
+            f_tei = os.path.join(out_dir, f"out__{counter:03}.tei")
             collation = collatex.Collation()
             cur_df = gr[1]
             for i, row in cur_df.iterrows():
@@ -161,7 +163,7 @@ class CxCollate():
             table = collatex.collate(collation)
             end_time = datetime.now()
             print(f"finished at {end_time} after {end_time - start_time}")
-            print(f"saving results to {f_html} and {f_xml}")
+            print(f"saving results to {f_html} and {f_tei}")
             with open(f_html, 'w') as f:
                 print(
                     visualize_table_vertically_with_colors(
@@ -170,7 +172,15 @@ class CxCollate():
                     ),
                     file=f
                 )
-            files.append([f_html, f_xml])
+            with open(f_tei, 'w') as f:
+                print(
+                    export_alignment_table_as_tei(
+                        table,
+                        indent=True
+                    ),
+                    file=f
+                )
+            files.append([f_html, f_tei])
         print("################################\n")
         print(f"finished collating {self.file_count} Documents at {datetime.now()}\n")
         print("################################\n")
