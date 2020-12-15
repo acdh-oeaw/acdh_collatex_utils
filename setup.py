@@ -56,6 +56,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/acdh-oeaw/acdh_collatex_utils',
-    version='1.0.0',
+    version='1.0.1',
     zip_safe=False,
 )
