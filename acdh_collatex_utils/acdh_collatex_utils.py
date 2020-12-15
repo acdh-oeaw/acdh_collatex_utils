@@ -143,18 +143,17 @@ class CxCollate():
         print("################################\n")
         files = []
         try:
-            out_dir = os.makedirs(self.output_dir)
+            os.makedirs(self.output_dir)
         except Exception as e:
-            print(f'out_dir: {self.output_dir} already exists')
-            out_dir = self.output_dir
+            print(f'{self.output_dir}: {self.output_dir} already exists')
         counter = 0
         df = self.df
         for gr in df.groupby('chunk_nr'):
             counter += 1
             start_time = datetime.now()
             print(f"start collating group {counter} at {start_time}")
-            f_html = os.path.join(out_dir, f"out__{counter:03}.html")
-            f_tei = os.path.join(out_dir, f"out__{counter:03}.tei")
+            f_html = os.path.join(self.output_dir, f"out__{counter:03}.html")
+            f_tei = os.path.join(self.output_dir, f"out__{counter:03}.tei")
             collation = collatex.Collation()
             cur_df = gr[1]
             for i, row in cur_df.iterrows():
