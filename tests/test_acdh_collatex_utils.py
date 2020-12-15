@@ -5,10 +5,8 @@
 import glob
 import os
 import unittest
-from click.testing import CliRunner
 
 from acdh_collatex_utils.acdh_collatex_utils import *
-from acdh_collatex_utils import cli
 
 FILES = glob.glob(
     "./fixtures/*.xml",
@@ -67,13 +65,3 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         if len(cur_out_files) > 0:
             for x in cur_out_files:
                 os.remove(x)
-
-    def test_command_line_interface(self):
-        """Test the CLI."""
-        runner = CliRunner()
-        result = runner.invoke(cli.main)
-        assert result.exit_code == 0
-        assert 'acdh_collatex_utils.cli.main' in result.output
-        help_result = runner.invoke(cli.main, ['--help'])
-        assert help_result.exit_code == 0
-        assert '--help  Show this message and exit.' in help_result.output
