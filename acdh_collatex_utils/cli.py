@@ -2,15 +2,27 @@
 import sys
 import click
 
-
-@click.command()
-def main(args=None):
-    """Console script for acdh_collatex_utils."""
-    click.echo("Replace this message by putting your code into "
-               "acdh_collatex_utils.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
-    return 0
+from . acdh_collatex_utils import CUSTOM_XSL, CHUNK_SIZE, CxCollate
 
 
-if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+@click.command()  # pragma: no cover
+@click.option('-g', '--glob-pattern', default='./fixtures/*.xml', show_default=True)  # pragma: no cover
+@click.option('-o', '--output-dir', default='./tmp', show_default=True)  # pragma: no cover
+@click.option('--nr/--r', default=False, show_default=True)  # pragma: no cover
+def collate(glob_pattern, output_dir, nr):  # pragma: no cover
+    """Console script to flatten XML/TEI files of a work."""
+    out = CxCollate(glob_pattern=glob_pattern, glob_recursive=nr, output_dir=output_dir).collate()
+    for x in out:
+        click.echo(
+            click.style(
+                f"finished saving: {x}\n",
+                fg='green'
+            )
+        )
+
+    click.echo(
+        click.style(
+            f"\n################################\n",
+            fg='green'
+        )
+    )

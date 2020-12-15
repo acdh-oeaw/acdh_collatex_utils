@@ -38,7 +38,7 @@ setup(
     description="Utility functions to work with collatex",
     entry_points={
         'console_scripts': [
-            'acdh_collatex_utils=acdh_collatex_utils.cli:main',
+            'collate=acdh_collatex_utils.cli:collate',
         ],
     },
     install_requires=requirements,
