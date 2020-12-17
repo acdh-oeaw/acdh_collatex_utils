@@ -11,7 +11,7 @@ from . acdh_collatex_utils import CUSTOM_XSL, CHUNK_SIZE, CxCollate
 @click.option('--nr/--r', default=False, show_default=True)  # pragma: no cover
 def collate(glob_pattern, output_dir, nr):  # pragma: no cover
     """Console script to flatten XML/TEI files of a work."""
-    out = CxCollate(glob_pattern=glob_pattern, glob_recursive=nr, output_dir=output_dir).collate()
+    out = CxCollate(glob_pattern=glob_pattern, glob_recursive=nr, output_dir=output_dir, char_limit=False).collate()
     for x in out:
         click.echo(
             click.style(

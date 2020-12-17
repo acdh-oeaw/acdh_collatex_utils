@@ -99,7 +99,7 @@ class CxReader(XMLReader):
             self.file_name = self.file
 
 
-def yield_chunks(files):
+def yield_chunks(files, char_limit=True):
 
     """ utility function to yield chunks from a collection of files
 
@@ -111,13 +111,13 @@ def yield_chunks(files):
 
     """
     for x in files:
-        doc = CxReader(xml=x)
+        doc = CxReader(xml=x, char_limit=char_limit)
         chunks = doc.yield_chunks()
         for y in chunks:
             yield y
 
 
-def chunks_to_df(files):
+def chunks_to_df(files, char_limit=True):
 
     """ reads chunks from a list of files into a `pandas.DataFrame`
 
@@ -127,7 +127,7 @@ def chunks_to_df(files):
     :return: a pandas.Dataframe with columns `id`, `chunk_nr`, `text`, and `char_count`
     :rtype: pandas.Dataframe
     """
-    df = pd.DataFrame(yield_chunks(files))
+    df = pd.DataFrame(yield_chunks(files, char_limit=char_limit))
     return df
 
 
@@ -136,7 +136,7 @@ class CxCollate():
     """
 
     def chunk_df(self):
-        return chunks_to_df(self.files)
+        return chunks_to_df(self.files, self.char_limit)
 
     def collate(self):
         print(f"start collating {self.file_count} Documents at {datetime.now()}\n")
