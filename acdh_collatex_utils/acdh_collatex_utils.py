@@ -107,7 +107,7 @@ def yield_chunks(files, char_limit=True):
     :type files: list
 
     :return: yields chunk dicts
-    :rtype: dict:
+    :rtype: dict
 
     """
     for x in files:
