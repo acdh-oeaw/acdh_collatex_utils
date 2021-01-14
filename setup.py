@@ -15,7 +15,7 @@ requirements = [
     'requests==2.25.0',
     'Click>=7.0',
     'collatex==2.2',
-    'lxml==4.6.1',
+    'lxml==4.6.2',
     'pandas==1.1.5',
     'tqdm==4.52.0'
 ]
