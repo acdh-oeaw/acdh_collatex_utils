@@ -7,7 +7,7 @@ import collatex
 from collatex.core_functions import export_alignment_table_as_tei
 from datetime import datetime
 
-from . xml import XMLReader
+from acdh_xml_pyutils.xml import XMLReader
 from . chunks import get_chunks
 from . collatex_patch import visualize_table_vertically_with_colors
 
