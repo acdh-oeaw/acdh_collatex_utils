@@ -2,7 +2,7 @@
 import sys
 import click
 
-from . acdh_collatex_utils import CUSTOM_XSL, CHUNK_SIZE, CxCollate
+from . acdh_collatex_utils import CxCollate
 
 
 @click.command()  # pragma: no cover

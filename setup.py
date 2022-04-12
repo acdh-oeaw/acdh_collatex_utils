@@ -11,12 +11,11 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'acdh-xml-pyutils==0.1.0',
-    'python-levenshtein==0.12.0',
-    'Click>=7.0',
+    'acdh-xml-pyutils>=0.1.0, <1',
+    'click>=7.1<9',
     'collatex==2.2',
-    'pandas==1.1.5',
-    'tqdm==4.52.0'
+    'pandas>=1.1.5,<2',
+    'tqdm>=4.52.0,<5'
 ]
 
 setup_requirements = []
