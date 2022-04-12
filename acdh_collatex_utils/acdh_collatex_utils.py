@@ -17,7 +17,7 @@ CUSTOM_XSL = os.path.join(
     "only_text.xsl"
 )
 
-CHUNK_SIZE = 6000
+CHUNK_SIZE = 2000
 
 
 class CxReader(XMLReader):
