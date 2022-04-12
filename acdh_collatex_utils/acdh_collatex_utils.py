@@ -54,7 +54,8 @@ class CxReader(XMLReader):
 
         """ yields chunks of the object's plain text
 
-        :return:  yields dicts like `{"id": "example_text.txt", "chunk_nr": "001", "text": "text of chunk", "char_count": 13}`
+        :return:  yields dicts like\
+            `{"id": "example_text.txt", "chunk_nr": "001", "text": "text of chunk", "char_count": 13}`
         :rtype: dict
         """
         return get_chunks(self.plain_text, self.chunk_size, self.file_name)
@@ -144,7 +145,7 @@ class CxCollate():
         files = []
         try:
             os.makedirs(self.output_dir)
-        except Exception as e:
+        except Exception as e:  # noqa: F841
             print(f'{self.output_dir}: {self.output_dir} already exists')
         counter = 0
         df = self.df

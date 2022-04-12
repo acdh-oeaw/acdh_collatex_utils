@@ -1,4 +1,4 @@
-from collatex.display_module import *
+from collatex.display_module import Table, TableCell, fill, TableRow
 
 
 def visualize_table_vertically_with_colors(table, collation):
@@ -11,7 +11,12 @@ def visualize_table_vertically_with_colors(table, collation):
         cells = []
         for witness in collation.witnesses:
             cell = column.tokens_per_witness.get(witness.sigil)
-            cells.append(TableCell(text=fill("".join(item.token_data["t"] for item in cell) if cell else "-", 20), bgcolor="white" if column.variant else "00FFFF"))
+            cells.append(
+                TableCell(
+                    text=fill("".join(item.token_data["t"] for item in cell) if cell else "-", 20),
+                    bgcolor="white" if column.variant else "00FFFF"
+                )
+            )
         rows.append(TableRow(cells=cells))
     sigli = []
     for witness in collation.witnesses:

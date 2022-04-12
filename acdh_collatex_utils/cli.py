@@ -1,5 +1,4 @@
 """Console script for acdh_collatex_utils."""
-import sys
 import click
 
 from . acdh_collatex_utils import CxCollate
@@ -29,7 +28,7 @@ def collate(glob_pattern, nr):  # pragma: no cover
 
     click.echo(
         click.style(
-            f"\n################################\n",
+            "\n################################\n",
             fg='green'
         )
     )

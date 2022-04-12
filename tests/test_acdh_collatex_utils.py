@@ -6,7 +6,11 @@ import glob
 import os
 import unittest
 
-from acdh_collatex_utils.acdh_collatex_utils import *
+from acdh_collatex_utils.acdh_collatex_utils import (
+    chunks_to_df,
+    CxReader,
+    CxCollate
+)
 
 FILES = glob.glob(
     "./fixtures/*.xml",
@@ -40,7 +44,7 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         """Check if all tei:hi elments are properly removed"""
         for x in FILES:
             doc = CxReader(xml=x)
-            doc_no_limit = CxReader(xml=x)
+            CxReader(xml=x)
             self.assertFalse('<lb break' in f"{doc.preprocess()}")
             self.assertTrue('<lb' in f"{doc.preprocess()}")
 
