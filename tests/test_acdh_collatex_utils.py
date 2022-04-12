@@ -52,7 +52,7 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         if len(OUT_FILES) > 0:
             for x in OUT_FILES:
                 os.remove(x)
-        out = CxCollate(output_dir='./fixtures').collate()
+        CxCollate(output_dir='./fixtures').collate()
         new_htmls = glob.glob(
             "./fixtures/*.html",
             recursive=False

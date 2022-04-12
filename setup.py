@@ -4,17 +4,16 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
 
 requirements = [
     'acdh-xml-pyutils>=0.1.0, <1',
     'click>=7.1<9',
     'collatex==2.2',
     'pandas>=1.1.5,<2',
+    'python-Levenshtein',
     'tqdm>=4.52.0,<5'
 ]
 
@@ -41,7 +40,8 @@ setup(
     },
     install_requires=requirements,
     license="MIT license",
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     package_data={
         '': ['fixtures/*.*'],
