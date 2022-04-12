@@ -10,6 +10,13 @@ A python package to collate things with collate-x
 
 * create a virtual environment and install the package with `pip install acdh_collatex_utils` 
 
+## use
+
+To collate a bunch of XML/TEI documents located in e.g. `./to_collate` run
+`collate -g './to_collate/*.xml`
+
+This creates a folder `./to_collate/collated` and saves chunked HTML and TEI Files like `out__001.html` or `out__001.tei`
+
 ## develop
 
 * create a virutal environment
