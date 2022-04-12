@@ -9,7 +9,8 @@ from . acdh_collatex_utils import CxCollate
 @click.option('--nr/--r', default=False, show_default=True)  # pragma: no cover
 def collate(glob_pattern, nr):  # pragma: no cover
     """Console script to flatten XML/TEI files of a work."""
-    new_glob_pattern = f"{glob_pattern}/*.xml"
+    new_glob_pattern = f"{glob_pattern}"
+    print(new_glob_pattern)
     output_dir = new_glob_pattern.replace("*.xml", 'collated')
 
     out = CxCollate(
