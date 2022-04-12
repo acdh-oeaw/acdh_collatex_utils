@@ -1,5 +1,7 @@
 # CollateX Utils
 
+[![flake8 Lint](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/lint.yml)
+
 A python package to collate things with collate-x
 
 ## install
