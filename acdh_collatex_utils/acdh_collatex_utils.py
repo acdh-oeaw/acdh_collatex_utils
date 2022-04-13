@@ -46,6 +46,8 @@ class CxReader(XMLReader):
         """
         cur_doc = self.cur_doc
         plain_text = " ".join(cur_doc.xpath('.//tei:body//tei:p//text()', namespaces=self.nsmap))
+        plain_text = " ".join(plain_text.split())
+        # plain_text = plain_text.replace('ß', 'ss')
         if self.char_limit:
             return plain_text[:5000]
         return plain_text
