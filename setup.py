@@ -9,7 +9,7 @@ with open('README.md') as readme_file:
 
 
 requirements = [
-    'acdh-xml-pyutils>=0.1.0, <1',
+    'acdh-tei-pyutils>=0.25.0, <1',
     'click>=7.1<9',
     'collatex==2.2',
     'pandas>=1.1.5,<2',
