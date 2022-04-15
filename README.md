@@ -1,7 +1,6 @@
 # CollateX Utils
 
-[![flake8 Lint](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/lint.yml)
-[![Test](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/test.yml/badge.svg)](https://github.com/acdh-oeaw/acdh_collatex_utils/actions/workflows/test.yml)
+[![PyPI version](https://badge.fury.io/py/acdh-collatex-utils.svg)](https://badge.fury.io/py/acdh-collatex-utils)
 [![codecov](https://codecov.io/gh/acdh-oeaw/acdh_collatex_utils/branch/master/graph/badge.svg?token=G3PO6ZC12Z)](https://codecov.io/gh/acdh-oeaw/acdh_collatex_utils)
 
 A python package to collate things with collate-x
