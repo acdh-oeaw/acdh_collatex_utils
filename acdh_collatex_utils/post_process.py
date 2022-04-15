@@ -27,7 +27,7 @@ TEI_DUMMY_STRING = """
 
 
 def merge_tei_fragments(files):
-    """ takes a list of files (fullpaths) and retuns a singel tei:ab element.etree node"""
+    """ takes a list of files (fullpaths) and retuns a single tei:ab element.etree node"""
     full_doc = ET.Element("{http://www.tei-c.org/ns/1.0}ab", nsmap={None: "http://www.tei-c.org/ns/1.0"})
     for x in sorted(files):
         doc = TeiReader(x)

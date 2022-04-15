@@ -4,7 +4,9 @@
 
 import glob
 import os
+import shutil
 import unittest
+import lxml.etree as ET
 
 from acdh_collatex_utils.acdh_collatex_utils import (
     chunks_to_df,
@@ -12,15 +14,19 @@ from acdh_collatex_utils.acdh_collatex_utils import (
     CxCollate
 )
 
+from acdh_collatex_utils.post_process import (
+    make_full_tei_doc,
+    merge_tei_fragments,
+)
+
+
 FILES = glob.glob(
     "./fixtures/*.xml",
     recursive=False
 )
-
-OUT_FILES = glob.glob(
-    "./fixtures/out__*.*",
-    recursive=False
-)
+INPUT_FILE = "./fixtures/tmp/tmp.xml"
+FINAL = "./fixtures/tmp/tmp_final.xml"
+TMP_DIR = './fixtures/tmp'
 
 
 class TestAcdh_collatex_utils(unittest.TestCase):
@@ -53,19 +59,37 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         self.assertTrue('id' in df.keys())
 
     def test_004_collate_chunks(self):
-        if len(OUT_FILES) > 0:
-            for x in OUT_FILES:
-                os.remove(x)
         CxCollate(output_dir='./fixtures').collate()
         new_htmls = glob.glob(
             "./fixtures/*.html",
             recursive=False
         )
         self.assertTrue(len(new_htmls) == 3)
-        cur_out_files = glob.glob(
+
+    def test_004_merge_tei_fragments(self):
+        COL_FILES = glob.glob(
+            "./fixtures/*.tei",
+            recursive=False
+        )
+        os.makedirs(TMP_DIR, exist_ok=True)
+        full_doc = merge_tei_fragments(COL_FILES)
+        self.assertEqual(
+            "{http://www.tei-c.org/ns/1.0}ab", f"{full_doc.tag}"
+        )
+        with open(INPUT_FILE, 'w') as f:
+            f.write(ET.tostring(full_doc, encoding='UTF-8').decode('utf-8'))
+        OUT_FILES = glob.glob(
             "./fixtures/out__*.*",
             recursive=False
         )
-        if len(cur_out_files) > 0:
-            for x in cur_out_files:
-                os.remove(x)
+        for x in OUT_FILES:
+            os.remove(x)
+
+    def test_005_make_full_tei_doc(self):
+        full_tei = make_full_tei_doc(INPUT_FILE)
+        root = full_tei.tree
+        self.assertEqual(
+            "{http://www.tei-c.org/ns/1.0}TEI", f"{root.tag}"
+        )
+        full_tei.tree_to_file(FINAL)
+        shutil.rmtree(TMP_DIR)
