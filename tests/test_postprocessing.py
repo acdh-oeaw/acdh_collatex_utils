@@ -3,6 +3,7 @@
 """Tests for `acdh_collatex_utils` package."""
 
 import glob
+import os
 import unittest
 
 import lxml.etree as ET
@@ -17,7 +18,7 @@ FILES = glob.glob(
     recursive=False
 )
 
-INPUT_FILE = "./fixtures/collated/tmp.xml"
+INPUT_FILE = "./fixtures/tmp.xml"
 
 
 class TestAcdh_collatex_utils(unittest.TestCase):
@@ -45,3 +46,4 @@ class TestAcdh_collatex_utils(unittest.TestCase):
             "{http://www.tei-c.org/ns/1.0}TEI", f"{root.tag}"
         )
         full_tei.tree_to_file(INPUT_FILE)
+        os.remove(INPUT_FILE)
