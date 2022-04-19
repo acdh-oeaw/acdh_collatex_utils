@@ -17,6 +17,7 @@ from acdh_collatex_utils.acdh_collatex_utils import (
 from acdh_collatex_utils.post_process import (
     make_full_tei_doc,
     merge_tei_fragments,
+    make_html_table_file
 )
 
 
@@ -78,12 +79,6 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         )
         with open(INPUT_FILE, 'w') as f:
             f.write(ET.tostring(full_doc, encoding='UTF-8').decode('utf-8'))
-        OUT_FILES = glob.glob(
-            "./fixtures/out__*.*",
-            recursive=False
-        )
-        for x in OUT_FILES:
-            os.remove(x)
 
     def test_005_make_full_tei_doc(self):
         full_tei = make_full_tei_doc(INPUT_FILE)
@@ -93,3 +88,14 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         )
         full_tei.tree_to_file(FINAL)
         shutil.rmtree(TMP_DIR)
+
+    def test_006_merge_htmls(self):
+        files = glob.glob('./fixtures/*.html')
+        merged = make_html_table_file(files)
+        self.assertTrue(merged.return_string()[:6], 'html')
+        OUT_FILES = glob.glob(
+            "./fixtures/out__*.*",
+            recursive=False
+        )
+        for x in OUT_FILES:
+            os.remove(x)

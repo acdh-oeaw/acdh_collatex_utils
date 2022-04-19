@@ -25,6 +25,67 @@ TEI_DUMMY_STRING = """
 </TEI>
 """
 
+XHTML_DUMMY_STRING = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <div id="collationTableDiv">
+            <table id="collationTable">
+                <thead/>
+                <tbody/>
+            </table>
+        </div>
+    </body>
+</html>
+"""
+
+
+def make_html_table_file(files, match_class="white"):
+    """ merges splitted collation tables into singel (X)HTML file """
+
+    rows = []
+    for x in files:
+        doc = TeiReader(x)
+        for r in doc.any_xpath('.//TR')[1:]:
+            rows.append(r)
+    html_dummy = TeiReader(XHTML_DUMMY_STRING)
+    t_head = html_dummy.any_xpath('.//thead')[0]
+    t_body = html_dummy.any_xpath('.//tbody')[0]
+    t_hrow = ET.Element('tr')
+    t_head.append(t_hrow)
+    for x in doc.any_xpath('.//TR[1]//TH'):
+        t_h = ET.Element('th')
+        t_hrow.append(t_h)
+        t_h.attrib['scope'] = 'col'
+        t_h.text = x.text.split('___')[1]
+    t_h = ET.Element('th')
+    t_hrow.append(t_h)
+    t_h.attrib['scope'] = 'col'
+    t_h.text = 'differs'
+
+    for x in rows:
+        row = ET.Element('tr')
+        t_body.append(row)
+        for cell in x.xpath('.//TD'):
+            td = ET.Element('td')
+            try:
+                td.text = cell.text
+            except AttributeError:
+                td.text = ''
+            row.append(td)
+        if cell.attrib['bgcolor'] == match_class:
+            td = ET.Element('td')
+            td.text = 'differs'
+        else:
+            td = ET.Element('td')
+            td.text = 'same'
+        row.append(td)
+    return html_dummy
+
 
 def merge_tei_fragments(files):
     """ takes a list of files (fullpaths) and retuns a single tei:ab element.etree node"""
