@@ -1,5 +1,6 @@
 import lxml.etree as ET
 from acdh_tei_pyutils.tei import TeiReader
+from bs4 import BeautifulSoup, Tag
 
 TEI_DUMMY_STRING = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,66 +26,27 @@ TEI_DUMMY_STRING = """
 </TEI>
 """
 
-XHTML_DUMMY_STRING = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title></title>
-    </head>
-    <body>
-        <div id="collationTableDiv">
-            <table id="collationTable">
-                <thead/>
-                <tbody/>
-            </table>
-        </div>
-    </body>
-</html>
-"""
 
+def merge_html_fragments(files):
+    """ merges splitted collation tables into single (X)HTML file
 
-def make_html_table_file(files, match_class="white"):
-    """ merges splitted collation tables into singel (X)HTML file """
+    :param files: A list of absolute file paths
 
-    rows = []
-    for x in files:
-        doc = TeiReader(x)
-        for r in doc.any_xpath('.//TR')[1:]:
-            rows.append(r)
-    html_dummy = TeiReader(XHTML_DUMMY_STRING)
-    t_head = html_dummy.any_xpath('.//thead')[0]
-    t_body = html_dummy.any_xpath('.//tbody')[0]
-    t_hrow = ET.Element('tr')
-    t_head.append(t_hrow)
-    for x in doc.any_xpath('.//TR[1]//TH'):
-        t_h = ET.Element('th')
-        t_hrow.append(t_h)
-        t_h.attrib['scope'] = 'col'
-        t_h.text = x.text.split('___')[1]
-    t_h = ET.Element('th')
-    t_hrow.append(t_h)
-    t_h.attrib['scope'] = 'col'
-    t_h.text = 'differs'
+    :return: a beautiful soup object providing an html-table
+    """
 
-    for x in rows:
-        row = ET.Element('tr')
-        t_body.append(row)
-        for cell in x.xpath('.//TD'):
-            td = ET.Element('td')
-            try:
-                td.text = cell.text
-            except AttributeError:
-                td.text = ''
-            row.append(td)
-        if cell.attrib['bgcolor'] == match_class:
-            td = ET.Element('td')
-            td.text = 'differs'
-        else:
-            td = ET.Element('td')
-            td.text = 'same'
-        row.append(td)
-    return html_dummy
+    tr = []
+    for x in sorted(files):
+        with open(x, 'r') as f:
+            soup = BeautifulSoup(f, "html.parser")
+            for row in soup.find_all('tr'):
+                tr.append(row)
+    new_soup = BeautifulSoup()
+    table = Tag(new_soup, name="table")
+    new_soup.append(table)
+    for x in tr:
+        table.append(x)
+    return new_soup
 
 
 def merge_tei_fragments(files):

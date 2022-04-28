@@ -17,7 +17,7 @@ from acdh_collatex_utils.acdh_collatex_utils import (
 from acdh_collatex_utils.post_process import (
     make_full_tei_doc,
     merge_tei_fragments,
-    make_html_table_file
+    merge_html_fragments
 )
 
 
@@ -91,8 +91,9 @@ class TestAcdh_collatex_utils(unittest.TestCase):
 
     def test_006_merge_htmls(self):
         files = glob.glob('./fixtures/*.html')
-        merged = make_html_table_file(files)
-        self.assertTrue(merged.return_string()[:6], 'html')
+        merged = merge_html_fragments(files)
+        tag_name = merged.table.name
+        self.assertTrue(tag_name, 'table')
         OUT_FILES = glob.glob(
             "./fixtures/out__*.*",
             recursive=False

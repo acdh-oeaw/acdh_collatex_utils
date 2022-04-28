@@ -110,3 +110,4 @@ ENV/
 out__*.html
 out__*.tei
 fixtures/collated/tmp.xml
+hansi*
