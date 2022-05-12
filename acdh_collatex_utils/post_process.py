@@ -1,6 +1,15 @@
+import os
 import lxml.etree as ET
 from acdh_tei_pyutils.tei import TeiReader
 from bs4 import BeautifulSoup, Tag
+
+
+LEM_XSL = os.path.join(
+    os.path.dirname(__file__),
+    "xslt",
+    "lem.xsl"
+)
+
 
 TEI_DUMMY_STRING = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -84,3 +93,21 @@ def make_full_tei_doc(input_file):
     for x in crit_app.any_xpath('./*'):
         body.append(x)
     return tei_dummy
+
+
+def define_readings(input_file, rdg_wit_id, lem_xsl=LEM_XSL):
+    """ transforms tei:rdg[@weit='rdg_wit_id'] into tei:lem
+
+    :param input_file: XML/TEI file with tei:app
+    :param rdg_wit_id: the xml:id of the witness for the lemma
+    :param lem_xsl: The XSLT doing the transformation
+
+    :return: the output of the transformation
+    """
+    with open(lem_xsl, 'r', encoding='utf-8') as f:
+        proper_xsl = f.read().replace('!!!REPLACEME!!!', rdg_wit_id)
+    input_doc = TeiReader(input_file)
+    xsl_doc = TeiReader(proper_xsl)
+    transform = ET.XSLT(xsl_doc.tree)
+    out = transform(input_doc.tree)
+    return out

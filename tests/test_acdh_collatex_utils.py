@@ -17,12 +17,14 @@ from acdh_collatex_utils.acdh_collatex_utils import (
 from acdh_collatex_utils.post_process import (
     make_full_tei_doc,
     merge_tei_fragments,
-    merge_html_fragments
+    merge_html_fragments,
+    define_readings
 )
 
+GLOB_PATTERN = "./fixtures/*__*.xml"
 
 FILES = glob.glob(
-    "./fixtures/*.xml",
+    GLOB_PATTERN,
     recursive=False
 )
 INPUT_FILE = "./fixtures/tmp/tmp.xml"
@@ -60,7 +62,7 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         self.assertTrue('id' in df.keys())
 
     def test_004_collate_chunks(self):
-        CxCollate(output_dir='./fixtures').collate()
+        CxCollate(glob_pattern=GLOB_PATTERN, output_dir='./fixtures').collate()
         new_htmls = glob.glob(
             "./fixtures/*.html",
             recursive=False
@@ -100,3 +102,9 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         )
         for x in OUT_FILES:
             os.remove(x)
+
+    def test_007_rdg_to_lem(self):
+        input_file = './fixtures/full_tei.xml'
+        rdg_wit_id = 'sfe-1901-01__1925.xml'
+        crit_ap_with_rdgs = define_readings(input_file, rdg_wit_id)
+        self.assertIn("<app><lem wit", f"{crit_ap_with_rdgs}")
