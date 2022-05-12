@@ -16,6 +16,8 @@ To collate a bunch of XML/TEI documents located in e.g. `./to_collate` run
 
 This creates a folder `./to_collate/collated` and saves chunked HTML and TEI Files like `out__001.html` or `out__001.tei`
 
+To see this package in use in a real life project, please check out [frd-data/collate_work.py](https://github.com/freud-digital/frd-data/blob/main/collate_work.py)
+
 ## develop
 
 * create a virutal environment
