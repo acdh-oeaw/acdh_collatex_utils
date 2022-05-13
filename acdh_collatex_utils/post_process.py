@@ -95,6 +95,27 @@ def make_full_tei_doc(input_file):
     return tei_dummy
 
 
+def make_positive_app(input_file):
+    """ transform negativ apparat into positive one
+    :param input_file: A TEI/XML file with listWit and app elements
+
+    :return: A TeiReader instance
+    """
+    doc = TeiReader(input_file)
+    wit_ids = set(doc.any_xpath('.//tei:witness/@xml:id'))
+    for x in doc.any_xpath('.//tei:app'):
+        cur_wit_ids = set()
+        for wit in x.xpath('./*'):
+            for w in wit.attrib['wit'].split(' '):
+                cur_wit_ids.add(w[1:])
+        missing = list(wit_ids.difference(cur_wit_ids))
+        if missing:
+            rdg = ET.Element('{http://www.tei-c.org/ns/1.0}rdg')
+            rdg.attrib['wit'] = " ".join([f"#{x}" for x in missing])
+            x.append(rdg)
+    return doc
+
+
 def define_readings(input_file, rdg_wit_id, lem_xsl=LEM_XSL):
     """ transforms tei:rdg[@weit='rdg_wit_id'] into tei:lem
 
