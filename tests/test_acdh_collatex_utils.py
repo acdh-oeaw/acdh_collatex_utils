@@ -7,6 +7,7 @@ import os
 import shutil
 import unittest
 import lxml.etree as ET
+from acdh_tei_pyutils.tei import TeiReader
 
 from acdh_collatex_utils.acdh_collatex_utils import (
     chunks_to_df,
@@ -18,7 +19,8 @@ from acdh_collatex_utils.post_process import (
     make_full_tei_doc,
     merge_tei_fragments,
     merge_html_fragments,
-    define_readings
+    define_readings,
+    make_positive_app
 )
 
 GLOB_PATTERN = "./fixtures/*__*.xml"
@@ -108,3 +110,14 @@ class TestAcdh_collatex_utils(unittest.TestCase):
         rdg_wit_id = 'sfe-1901-01__1925.xml'
         crit_ap_with_rdgs = define_readings(input_file, rdg_wit_id)
         self.assertIn("<app><lem wit", f"{crit_ap_with_rdgs}")
+
+    def test_008_positiv_app(self):
+        input_file = './fixtures/full_tei.xml'
+        positive_doc = make_positive_app(input_file)
+        first_app = positive_doc.any_xpath('.//tei:app')[0]
+        rdgs = len(first_app.xpath('./*'))
+        self.assertTrue(rdgs, 3)
+        negative_doc = TeiReader(input_file)
+        first_app = negative_doc.any_xpath('.//tei:app')[0]
+        rdgs = len(first_app.xpath('./*'))
+        self.assertTrue(rdgs, 2)
