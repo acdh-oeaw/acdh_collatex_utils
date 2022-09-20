@@ -19,6 +19,8 @@ CUSTOM_XSL = os.path.join(
 
 CHUNK_SIZE = 2000
 
+XPATH = './/tei:body//tei:p//text()'
+
 
 class CxReader(XMLReader):
 
@@ -45,7 +47,7 @@ class CxReader(XMLReader):
 
         """
         cur_doc = self.cur_doc
-        plain_text = " ".join(cur_doc.xpath('.//tei:body//tei:p//text()', namespaces=self.nsmap))
+        plain_text = " ".join(cur_doc.xpath(self.xpath, namespaces=self.nsmap))
         plain_text = " ".join(plain_text.split())
         if self.char_limit:
             return plain_text[:5000]
@@ -66,6 +68,7 @@ class CxReader(XMLReader):
         custom_xsl=CUSTOM_XSL,
         char_limit=True,
         chunk_size=CHUNK_SIZE,
+        to_compare_xpath=XPATH,
         **kwargs
     ):
 
@@ -87,6 +90,7 @@ class CxReader(XMLReader):
 
         """
         super().__init__(**kwargs)
+        self.xpath = to_compare_xpath
         self.custom_xsl = ET.parse(custom_xsl)
         self.char_limit = char_limit
         self.chunk_size = chunk_size
@@ -101,7 +105,7 @@ class CxReader(XMLReader):
             self.file_name = self.file
 
 
-def yield_chunks(files, chunk_size=CHUNK_SIZE, char_limit=True):
+def yield_chunks(files, chunk_size=CHUNK_SIZE, char_limit=True, xpath=XPATH):
 
     """ utility function to yield chunks from a collection of files
 
@@ -113,13 +117,13 @@ def yield_chunks(files, chunk_size=CHUNK_SIZE, char_limit=True):
 
     """
     for x in files:
-        doc = CxReader(xml=x, char_limit=char_limit, chunk_size=chunk_size)
+        doc = CxReader(xml=x, char_limit=char_limit, chunk_size=chunk_size, to_compare_xpath=xpath)
         chunks = doc.yield_chunks()
         for y in chunks:
             yield y
 
 
-def chunks_to_df(files, char_limit=True, chunk_size=CHUNK_SIZE):
+def chunks_to_df(files, char_limit=True, chunk_size=CHUNK_SIZE, xpath=XPATH):
 
     """ reads chunks from a list of files into a `pandas.DataFrame`
 
@@ -129,7 +133,7 @@ def chunks_to_df(files, char_limit=True, chunk_size=CHUNK_SIZE):
     :return: a pandas.Dataframe with columns `id`, `chunk_nr`, `text`, and `char_count`
     :rtype: pandas.Dataframe
     """
-    df = pd.DataFrame(yield_chunks(files, char_limit=char_limit, chunk_size=chunk_size))
+    df = pd.DataFrame(yield_chunks(files, char_limit=char_limit, chunk_size=chunk_size, xpath=xpath))
     return df
 
 
@@ -138,7 +142,7 @@ class CxCollate():
     """
 
     def chunk_df(self):
-        return chunks_to_df(self.files, char_limit=self.char_limit, chunk_size=self.chunk_size)
+        return chunks_to_df(self.files, char_limit=self.char_limit, chunk_size=self.chunk_size, xpath=self.xpath)
 
     def collate(self):
         print(f"start collating {self.file_count} Documents at {datetime.now()}\n")
@@ -195,6 +199,7 @@ class CxCollate():
         custom_xsl=CUSTOM_XSL,
         char_limit=True,
         chunk_size=CHUNK_SIZE,
+        to_compare_xpath=XPATH,
         **kwargs
     ):
 
@@ -223,6 +228,7 @@ class CxCollate():
         :return: A CxReader instance
         :rtype: `acdh_collatex_utils.CxReader`
         """
+        self.xpath = to_compare_xpath
         self.glob_pattern = glob_pattern
         self.glob_recursive = glob_recursive
         self.output_dir = output_dir
