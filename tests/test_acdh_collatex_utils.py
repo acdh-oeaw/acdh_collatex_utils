@@ -85,7 +85,7 @@ class TestAcdh_collatex_utils(unittest.TestCase):
             f.write(ET.tostring(full_doc, encoding='UTF-8').decode('utf-8'))
 
     def test_005_make_full_tei_doc(self):
-        full_tei = make_full_tei_doc(INPUT_FILE)
+        full_tei = make_full_tei_doc(INPUT_FILE, wit_prefix=None)
         root = full_tei.tree
         self.assertEqual(
             "{http://www.tei-c.org/ns/1.0}TEI", f"{root.tag}"
