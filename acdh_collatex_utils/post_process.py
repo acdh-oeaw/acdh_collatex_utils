@@ -72,7 +72,7 @@ def merge_tei_fragments(files):
     return full_doc
 
 
-def make_full_tei_doc(input_file):
+def make_full_tei_doc(input_file, wit_prefix=None):
     """ takes the rusult of merged collated tei fragments\
         and returns a valid TEI document as TeiReader object"""
     tei_dummy = TeiReader(TEI_DUMMY_STRING)
@@ -86,9 +86,13 @@ def make_full_tei_doc(input_file):
             wit_set.add(w[1:])
 
     for x in list(sorted(wit_set)):
+        if wit_prefix is not None:
+            wit_id = f"{wit_prefix}__{x}"
+        else:
+            wit_id = x
         w_node = ET.Element("{http://www.tei-c.org/ns/1.0}witness", nsmap={None: "http://www.tei-c.org/ns/1.0"})
-        w_node.attrib['{http://www.w3.org/XML/1998/namespace}id'] = x
-        w_node.text = x
+        w_node.attrib['{http://www.w3.org/XML/1998/namespace}id'] = wit_id
+        w_node.text = wit_id
         list_wit_node.append(w_node)
     for x in crit_app.any_xpath('./*'):
         body.append(x)
