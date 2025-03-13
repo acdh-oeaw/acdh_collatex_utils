@@ -9,13 +9,13 @@ with open('README.md') as readme_file:
 
 
 requirements = [
-    'acdh-tei-pyutils>=0.25.0,<1',
-    'beautifulsoup4>=4.11.1,<5',
-    'click>=7.1<9',
-    'collatex==2.2',
-    'pandas>=1.1.5,<2',
+    'acdh-tei-pyutils',
+    'beautifulsoup4',
+    'click',
+    'collatex',
+    'pandas',
     'python-Levenshtein',
-    'tqdm>=4.52.0,<5'
+    'tqdm'
 ]
 
 setup_requirements = []
